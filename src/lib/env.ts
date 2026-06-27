@@ -4,8 +4,6 @@ const serverSchema = z.object({
   // sb_secret_... (구 service_role JWT 도 동작 — 2026 말 deprecated)
   SUPABASE_SECRET_KEY: z.string().min(1),
   TOSS_SECRET_KEY: z.string().min(1),
-  MANSERYEOK_API_URL: z.string().url().optional().or(z.literal("")),
-  MANSERYEOK_API_KEY: z.string().optional(),
   SAJU_API_URL: z.string().url().optional().or(z.literal("")),
   SAJU_API_KEY: z.string().optional(),
   LLM_PROVIDER: z.enum(["openai", "anthropic", "gemini"]).default("anthropic"),
@@ -14,6 +12,8 @@ const serverSchema = z.object({
   ANTHROPIC_API_KEY: z.string().optional(),
   GOOGLE_GENERATIVE_AI_API_KEY: z.string().optional(),
   ADMIN_PASSWORD: z.string().optional().default(""),
+  // 복구 크론(/api/cron/recover-results) 인증용. 비우면 크론 엔드포인트는 비활성(401).
+  CRON_SECRET: z.string().optional().default(""),
 });
 
 const publicSchema = z.object({
@@ -47,8 +47,6 @@ export function serverEnv() {
     _serverEnv = serverSchema.parse({
       SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
       TOSS_SECRET_KEY: process.env.TOSS_SECRET_KEY,
-      MANSERYEOK_API_URL: process.env.MANSERYEOK_API_URL,
-      MANSERYEOK_API_KEY: process.env.MANSERYEOK_API_KEY,
       SAJU_API_URL: process.env.SAJU_API_URL,
       SAJU_API_KEY: process.env.SAJU_API_KEY,
       LLM_PROVIDER: process.env.LLM_PROVIDER,
@@ -57,6 +55,7 @@ export function serverEnv() {
       ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
       GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
       ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+      CRON_SECRET: process.env.CRON_SECRET,
     });
   }
   return _serverEnv;

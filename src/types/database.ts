@@ -44,6 +44,8 @@ type OrderRow = {
   toss_payment_key: string | null;
   paid_at: string | null;
   created_at: string;
+  result_attempts: number; // 0006 — 복구 크론 재시도 횟수
+  result_last_attempt_at: string | null; // 0006
 };
 
 type SajuInputRow = {
@@ -66,6 +68,7 @@ type SajuResultRow = {
   interpretation_md: string;
   llm_provider: string;
   llm_model: string;
+  raw_analysis: Json | null; // 0005 마이그레이션 — luckyloveme 16종 원본 분석
   created_at: string;
 };
 
@@ -85,6 +88,18 @@ type SajuApiCallRow = {
   called_at: string;
   success: boolean;
   source: string | null;
+};
+
+type AnalyticsEventRow = {
+  id: number;
+  visitor_id: string | null;
+  session_id: string | null;
+  event: string;
+  path: string | null;
+  referrer: string | null;
+  props: Json;
+  ua: string | null;
+  created_at: string;
 };
 
 export type Database = {
@@ -161,6 +176,7 @@ export type Database = {
           interpretation_md: string;
           llm_provider: string;
           llm_model: string;
+          raw_analysis?: Json | null;
           created_at?: string;
         };
         Update: Partial<SajuResultRow>;
@@ -190,6 +206,22 @@ export type Database = {
           source?: string | null;
         };
         Update: Partial<SajuApiCallRow>;
+        Relationships: [];
+      };
+      analytics_events: {
+        Row: AnalyticsEventRow;
+        Insert: {
+          id?: number;
+          visitor_id?: string | null;
+          session_id?: string | null;
+          event: string;
+          path?: string | null;
+          referrer?: string | null;
+          props?: Json;
+          ua?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<AnalyticsEventRow>;
         Relationships: [];
       };
     };

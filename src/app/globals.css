@@ -1,31 +1,91 @@
+/* 명운록 (命運錄) — 밤하늘 먹빛 + 금 + 자수정 무드 (붓글씨·명조·Pretendard)
+   디자인 핸드오프: design_handoff_saju_funnel/README.md */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@latest/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Gowun+Batang:wght@400;700&family=Song+Myung&family=Ma+Shan+Zheng&family=Noto+Serif+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Ollama-inspired design system — see DESIGN.md
-   Paper-white canvas, pure black primary, no shadows, hairline borders,
-   full-rounded pill geometry on interactive elements. */
-
 @layer base {
   :root {
-    --background: 0 0% 100%;          /* canvas #ffffff */
-    --foreground: 0 0% 0%;            /* ink #000000 */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;               /* pure black */
+    /* shadcn-style HSL 토큰 — 명운록 자수정(amethyst) 다크 팔레트 */
+    --background: 263 64% 14%;          /* screen #1b0d3c */
+    --foreground: 252 43% 96%;          /* text strong #F1EEF9 */
+    --card: 258 64% 17%;                /* card #241047 */
+    --card-foreground: 252 43% 96%;
+    --primary: 258 83% 65%;             /* violet core #8a5cf0 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 98%;            /* surface-soft #fafafa */
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 98%;
-    --muted-foreground: 0 0% 45%;     /* body #737373 */
-    --accent: 0 0% 98%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 75% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;               /* hairline #e5e5e5 */
-    --input: 0 0% 90%;
-    --ring: 217 91% 60%;              /* focus-ring blue */
-    --radius: 0.75rem;                /* lg used for cards */
+    --secondary: 258 64% 17%;
+    --secondary-foreground: 252 43% 96%;
+    --muted: 263 60% 14%;               /* #1c0e3e */
+    --muted-foreground: 257 38% 68%;    /* #9a8cd0 */
+    --accent: 260 100% 83%;             /* #c9a8ff */
+    --accent-foreground: 258 70% 32%;   /* #3a1a8a */
+    --destructive: 8 52% 54%;
+    --destructive-foreground: 252 43% 96%;
+    --border: 258 30% 28%;              /* line/border 보라 */
+    --input: 258 64% 17%;
+    --ring: 264 100% 79%;               /* #b794ff */
+    --radius: 0.875rem;                 /* 부드러운 카드 — 14px */
+
+    /* 명운록 raw 토큰 — 자수정 다크 표면 */
+    --night:      #120726;  /* 가장 깊은 자수정 밤 */
+    --night-2:    #231052;
+    --night-3:    #2c1668;
+    --night-edge: #0c0420;  /* 더 깊은 보라 */
+    --screen:     #1b0d3c;  /* 화면 본문 배경 */
+    --wine:       #1b0d3c;  /* (호환 별칭) 화면 배경 */
+    --wine-2:     #241047;  /* 카드 표면 */
+    --wine-deep:  #1c0e3e;  /* 잠긴 카드·서브 표면 */
+    --wine-soft:  #2a1a5c;  /* 차트 셀 등 살짝 밝은 표면 */
+    --cardline:        #3a2f5e;  /* 카드/입력 테두리 */
+    --cardline-strong: #4a3a6e;  /* 차트 셀 테두리 */
+    --divider:         #2a2350;  /* 구분선 */
+
+    /* 텍스트 (다크 위) */
+    --bone:       #F1EEF9;  /* 헤드라인/강조 */
+    --bone-soft:  #cbb8f0;  /* 본문 */
+    --bone-faint: #9a8cd0;  /* 보조 */
+    --text-assistive: #9a8cd0;
+    --text-disabled:  #6B6880;
+
+    /* 1차 강조 — 자수정 보라 (gold 토큰명 유지·값은 보라). CTA 그라데이션은 흰색. */
+    --gold:        #c9a8ff;
+    --gold-bright: #dcc8ff;
+    --gold-soft:   #b794ff;
+    --gold-grad-start: #ffffff;
+    --gold-grad-end:   #f1eaff;
+    --gold-pale: rgba(150, 90, 255, 0.16);
+    --gold-line: rgba(180, 140, 255, 0.3);
+
+    /* 자수정 (violet) — 코어 액센트 */
+    --violet:        #8A6BF2;
+    --violet-strong: #6541F2;
+    --violet-text:   #B7A0F5;
+    --violet-line:   #4A3A6E;
+    --violet-pale:   rgba(138, 107, 242, 0.12);
+
+    --seal: #8b1e1e;
+    --kakao: #FEE500;
+    --kakao-text: #2b2b2b;
+    --success: #6FBE8B;
+    --star-blue: #4D8BFF;
+
+    /* 한지(밝은 카드) — 일부 컴포넌트 호환용 유지 */
+    --paper: #e8dfd0;
+    --paper-warm: #ede4d4;
+    --paper-deep: #d4c8af;
+    --ink-mu: #14110d;
+
+    /* 오행 (五行) — 자수정 디자인 팔레트 */
+    --o-wood:  #7fc8a0;
+    --o-fire:  #ff9a7a;
+    --o-earth: #e4c878;
+    --o-metal: #c8cdd4;
+    --o-water: #88a8e0;
   }
 }
 
@@ -39,39 +99,389 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family:
-      "SF Pro Rounded", -apple-system, BlinkMacSystemFont, ui-sans-serif,
-      system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+    text-wrap: pretty;
+    /* 자수정 씬 (전역 배경) */
+    background-color: #160a36;
+    background-image:
+      radial-gradient(120% 62% at 50% 4%, #4a2da0 0%, #2c1668 50%, #14092e 100%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(12, 4, 32, 0.6) 0%, transparent 70%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
   code, pre, kbd, samp {
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco,
-      Consolas, "Liberation Mono", monospace;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   }
-  /* Heading: SF Pro Rounded weight 500–600. Centered hero handled inline. */
+  /* 제목 = 명조 (Gowun Batang). 감성 헤드라인은 .brush 로 별도 지정. */
   h1, h2, h3 {
     @apply tracking-tight;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+  }
+  /* 입력창은 다크 톤 — 콘트라스트 위해 따로 처리 */
+  input, textarea, select {
+    background-color: var(--wine-2);
+    color: var(--bone);
+    border-color: var(--cardline);
+  }
+  input::placeholder, textarea::placeholder {
+    color: var(--text-disabled);
   }
 }
 
-/* Markdown result body — flat type scale, body neutral on white. */
-@layer components {
-  .prose-saju h2 {
-    @apply mt-10 mb-3 text-2xl font-semibold text-foreground;
+/* ── 폰트·글로우 유틸리티 ──────────────────────────────────── */
+@layer utilities {
+  .font-sans-kr    { font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif; }
+  .font-serif-kr   { font-family: 'Gowun Batang', 'Noto Serif KR', serif; }
+  .font-myeongjo   { font-family: 'Gowun Batang', 'Nanum Myeongjo', serif; }
+  .font-batang     { font-family: 'Gowun Batang', 'Noto Serif KR', serif; }
+  .font-brush      { font-family: 'Nanum Brush Script', 'Gowun Batang', cursive; }
+  .font-mono-kr    { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* 핸드오프 프로토타입 호환 별칭 (sans / serif / brush) */
+  .sans     { font-family: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif; }
+  .serif    { font-family: 'Gowun Batang', 'Noto Serif KR', serif; }
+  .myeong   { font-family: 'Song Myung', 'Gowun Batang', serif; }
+  .myeongjo { font-family: 'Gowun Batang', 'Nanum Myeongjo', serif; }
+  .brush    { font-family: 'Nanum Brush Script', 'Gowun Batang', cursive; }
+  .mono     { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  .glow-bone   { text-shadow: 0 0 18px rgba(241,238,249,0.35), 0 0 2px rgba(241,238,249,0.6); }
+  .glow-gold   { text-shadow: 0 0 24px rgba(225,193,123,0.45), 0 0 2px rgba(225,193,123,0.8); }
+  .glow-violet { text-shadow: 0 0 20px rgba(138,107,242,0.5), 0 0 2px rgba(183,160,245,0.85); }
+
+  /* 자수정 코너 글로우 (카드 우상단) */
+  .glow { position: relative; overflow: hidden; }
+  .glow::before {
+    content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(138,107,242,.30), transparent 68%);
+    top: -90px; right: -70px; pointer-events: none;
   }
-  .prose-saju h3 {
-    @apply mt-6 mb-2 text-lg font-semibold text-foreground;
-  }
-  .prose-saju p {
-    @apply my-3 leading-7 text-[#525252];
-  }
-  .prose-saju ul {
-    @apply my-3 list-disc space-y-1 pl-6 text-[#525252];
-  }
-  .prose-saju strong {
-    @apply font-semibold text-foreground;
-  }
-  .prose-saju code {
-    @apply rounded-md bg-[#fafafa] px-1.5 py-0.5 text-sm;
+
+  /* 반짝이는 별 입자 (카드/히어로 위) */
+  .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .5; }
+
+  .vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
   }
 }
+
+/* ── 명운록 컴포넌트 ──────────────────────────────────────── */
+@layer components {
+  /* 골드 그라데이션 CTA (1차 전환 버튼) */
+  .btn-gold-grad {
+    background: linear-gradient(180deg, var(--gold-grad-start), var(--gold-grad-end));
+    color: #3a1a8a;
+    font-weight: 800;
+    box-shadow: 0 12px 26px rgba(120, 60, 240, 0.4);
+  }
+  .btn-gold-grad:hover { filter: brightness(1.04); }
+
+  /* 자수정 그라데이션 CTA (심화/업셀 버튼) */
+  .btn-violet-grad {
+    background: linear-gradient(135deg, var(--violet), var(--violet-strong));
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 10px 26px rgba(138, 107, 242, 0.40);
+  }
+  .btn-violet-grad:hover { filter: brightness(1.06); }
+
+  /* 골드 프레임 (코너 L자 마크) */
+  .gold-frame {
+    position: relative;
+    padding: 24px 18px;
+    border: 1px solid var(--gold-line);
+  }
+  .gold-frame::before,
+  .gold-frame::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--gold);
+  }
+  .gold-frame::before { top: -4px;    left: -4px;  border-right: none; border-bottom: none; }
+  .gold-frame::after  { bottom: -4px; right: -4px; border-left: none;  border-top: none; }
+
+  /* 골드 가로 디바이더 */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--gold-line) 15%,
+      var(--gold) 50%,
+      var(--gold-line) 85%,
+      transparent 100%
+    );
+  }
+
+  /* 골드 세로 디바이더 */
+  .gold-rule-vert {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, transparent 0%, var(--gold-line) 30%, var(--gold-line) 70%, transparent 100%);
+    margin: 0 auto;
+  }
+
+  /* 다이아몬드 점 장식 */
+  .gold-diamond {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  /* 한지 텍스처 (밝은 톤 카드용 — 호환 유지) */
+  .hanji {
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(125,90,58,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 70% at 90% 95%, rgba(20,17,13,0.08) 0%, transparent 65%);
+    color: var(--ink-mu);
+  }
+
+  /* 다크 카드 (먹빛 씬 위에 띄울 때) */
+  .night-card {
+    background: var(--wine-2);
+    border: 1px solid var(--cardline);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  /* 인장 (red square seal) — 한자 도장 */
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--seal);
+    color: var(--paper-warm);
+    font-family: 'Ma Shan Zheng', 'Nanum Myeongjo', serif;
+    letter-spacing: 0.04em;
+    box-shadow:
+      inset 0 0 0 2px var(--paper-warm),
+      inset 0 0 0 3px var(--seal),
+      0 1px 0 rgba(20, 17, 13, 0.15);
+    filter: contrast(1.05) saturate(1.05);
+  }
+
+  /* 카카오 버튼 */
+  .btn-kakao {
+    width: 100%;
+    background: var(--kakao);
+    color: var(--kakao-text);
+    border: none;
+    padding: 16px 22px;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 14px;
+    cursor: pointer;
+  }
+  .btn-kakao:hover { filter: brightness(0.97); }
+
+  /* 골드 고스트 버튼 (보조 CTA) */
+  .btn-gold {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold-soft);
+    padding: 14px 20px;
+    font-family: 'Pretendard', sans-serif;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+  .btn-gold:hover { background: var(--gold-pale); }
+
+  /* 씬 배경 (섹션 단위 적용) */
+  .scene-wine {
+    background-color: var(--screen);
+    background-image:
+      radial-gradient(120% 62% at 50% 4%, #4a2da0 0%, #2c1668 50%, #14092e 100%);
+    color: var(--bone);
+    position: relative;
+  }
+  .scene-cosmos {
+    background-color: #160a36;
+    background-image:
+      radial-gradient(ellipse 80% 70% at 50% 42%, rgba(122,63,242,0.40) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 45% at 50% 55%, rgba(201,168,255,0.14) 0%, transparent 50%),
+      radial-gradient(120% 62% at 50% 4%, #4a2da0, #2c1668 50%, #14092e);
+    color: var(--bone);
+    position: relative;
+  }
+
+  /* 시네마틱 비네팅 */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* 장식 라인 (line · lozenge · line) */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    opacity: 0.6;
+  }
+  .ornament .dot     { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+  .ornament .line    { width: 28px; height: 1px; background: currentColor; }
+  .ornament .lozenge { width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); }
+
+  /* 별밤 (cosmos 씬 위 별 입자) */
+  .starfield {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 18%, rgba(241,238,249,0.95), transparent 50%),
+      radial-gradient(0.8px 0.8px at 78% 22%, rgba(241,238,249,0.7), transparent 50%),
+      radial-gradient(1.4px 1.4px at 32% 64%, rgba(225,193,123,0.9), transparent 50%),
+      radial-gradient(1px 1px at 88% 72%, rgba(241,238,249,0.8), transparent 50%),
+      radial-gradient(1.6px 1.6px at 56% 14%, rgba(241,238,249,0.95), transparent 50%),
+      radial-gradient(1px 1px at 22% 40%, rgba(241,238,249,0.55), transparent 50%),
+      radial-gradient(1px 1px at 64% 48%, rgba(183,160,245,0.7), transparent 50%),
+      radial-gradient(0.8px 0.8px at 8% 80%, rgba(241,238,249,0.75), transparent 50%),
+      radial-gradient(1.5px 1.5px at 92% 36%, rgba(241,238,249,0.9), transparent 50%),
+      radial-gradient(1px 1px at 44% 88%, rgba(225,193,123,0.6), transparent 50%),
+      radial-gradient(0.8px 0.8px at 72% 90%, rgba(241,238,249,0.55), transparent 50%),
+      radial-gradient(1px 1px at 18% 56%, rgba(241,238,249,0.5), transparent 50%),
+      radial-gradient(0.6px 0.6px at 38% 26%, rgba(241,238,249,0.7), transparent 50%),
+      radial-gradient(0.6px 0.6px at 84% 8%, rgba(241,238,249,0.6), transparent 50%),
+      radial-gradient(0.8px 0.8px at 6% 38%, rgba(241,238,249,0.55), transparent 50%),
+      radial-gradient(1px 1px at 96% 56%, rgba(183,160,245,0.5), transparent 50%);
+    background-size: 100% 100%;
+  }
+  .starfield::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(0.8px 0.8px at 30% 30%, rgba(241,238,249,0.8), transparent 50%),
+      radial-gradient(0.8px 0.8px at 70% 60%, rgba(241,238,249,0.7), transparent 50%),
+      radial-gradient(0.6px 0.6px at 50% 85%, rgba(241,238,249,0.6), transparent 50%),
+      radial-gradient(0.7px 0.7px at 20% 70%, rgba(241,238,249,0.65), transparent 50%);
+    animation: twinkle 4.5s ease-in-out infinite alternate;
+  }
+
+  /* 위저드 입력창 */
+  .ap-input {
+    width: 100%; padding: 14px 14px;
+    background: var(--wine-2); border: 1px solid var(--cardline);
+    color: var(--bone); outline: none;
+    border-radius: 11px;
+    font-family: 'Pretendard', -apple-system, sans-serif; font-size: 16px; letter-spacing: 0.01em;
+    transition: border-color 0.2s;
+  }
+  .ap-input:focus { border-color: var(--gold); }
+  .ap-input::placeholder { color: var(--text-disabled); }
+  .ap-input::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(2) hue-rotate(5deg); }
+}
+
+/* ── 페이드 인 / 별 깜빡임 애니메이션 ──────────────────────── */
+@layer utilities {
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .fade-up { animation: fadeUp 0.8s ease-out both; }
+
+  @keyframes inkFade {
+    from { opacity: 0; transform: translateY(6px); filter: blur(2px); }
+    to   { opacity: 1; transform: none; filter: none; }
+  }
+  .ink-fade    { animation: inkFade 0.7s ease-out both; }
+  .ink-fade-d1 { animation-delay: 0.08s; }
+  .ink-fade-d2 { animation-delay: 0.18s; }
+  .ink-fade-d3 { animation-delay: 0.30s; }
+  .ink-fade-d4 { animation-delay: 0.42s; }
+  .ink-fade-d5 { animation-delay: 0.56s; }
+
+  @keyframes drift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-6px); }
+  }
+  .drift { animation: drift 6s ease-in-out infinite alternate; }
+
+  @keyframes twinkle {
+    from { opacity: 0.3; }
+    to   { opacity: 0.95; }
+  }
+
+  /* 위저드 단계 전환 페이드 */
+  @keyframes svcFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .svc-fade { animation: svcFade 0.45s ease-out both; }
+
+  /* 결제 전 블러 처리(미리보기) */
+  .svc-blur { filter: blur(6px); opacity: 0.7; }
+}
+
+/* ── 결과지 markdown (밤하늘 위의 본문) ──────────────────────── */
+@layer components {
+  .prose-saju h2 {
+    @apply mt-10 mb-3 text-2xl font-semibold;
+    font-family: 'Gowun Batang', 'Noto Serif KR', serif;
+    color: var(--gold-bright);
+  }
+  .prose-saju h3 {
+    @apply mt-6 mb-2 text-lg font-semibold;
+    font-family: 'Gowun Batang', 'Noto Serif KR', serif;
+    color: var(--bone);
+  }
+  .prose-saju p {
+    @apply my-3 leading-7;
+    color: var(--bone-soft);
+  }
+  .prose-saju ul {
+    @apply my-3 list-disc space-y-1 pl-6;
+    color: var(--bone-soft);
+  }
+  .prose-saju ol {
+    @apply my-3 list-decimal space-y-1 pl-6;
+    color: var(--bone-soft);
+  }
+  .prose-saju strong {
+    @apply font-semibold;
+    color: var(--gold-bright);
+  }
+  .prose-saju em {
+    color: var(--bone);
+  }
+  .prose-saju code {
+    @apply rounded px-1.5 py-0.5 text-sm;
+    background: rgba(138, 107, 242, 0.15);
+    color: var(--bone);
+  }
+  .prose-saju a {
+    color: var(--gold-bright);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-line);
+  }
+}
+
+/* ── 자수정 랜딩(SAJU LAB) — 나경반/글로우 애니메이션 ──────────── */
+@keyframes orbfloat  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes glowpulse { 0%,100%{opacity:.55} 50%{opacity:.95} }
+@keyframes livedot   { 0%,100%{opacity:1} 50%{opacity:.25} }
+@keyframes spinwheel { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes rspin     { from{transform:rotate(0)} to{transform:rotate(-360deg)} }
+
+/* 접근성 — 모션 최소화 설정 시 나경반 회전/부유 정지 */
+@media (prefers-reduced-motion: reduce) {
+  .naegyeong, .naegyeong * { animation: none !important; }
+}
+
+/* 퍼널 화면 전환 페이드(Wanted 모션: ~200ms ease-out, 바운스 없음) */
+@keyframes viewFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.view-fade { animation: viewFade 200ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) { .view-fade { animation: none; } }

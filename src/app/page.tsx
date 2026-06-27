@@ -1,15 +1,5 @@
-import { Hero } from "@/components/landing/Hero";
-import { ProductLineup } from "@/components/landing/ProductLineup";
-import { HowItWorks } from "@/components/landing/HowItWorks";
-import { CTA } from "@/components/landing/CTA";
+import { SajuLabLanding } from "@/components/landing/saju-lab/SajuLabLanding";
 
 export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <ProductLineup />
-      <HowItWorks />
-      <CTA />
-    </>
-  );
+  return <SajuLabLanding />;
 }
